@@ -59,9 +59,11 @@ public class Vendita extends HttpServlet {
 		                    product.setImmagine(name);
 		                }
 		                else {
-		                	if (item.getFieldName().compareTo("nome") == 0) {
-		                		product.setNome(item.getString());
-		                	}
+		                	 if (item.getFieldName().compareTo("nome") == 0) {
+	                                // Sanitizzazione dell'input del nome del prodotto
+	                                String nomeProdotto = item.getString().replaceAll("[<>/]", "");
+	                                product.setNome(nomeProdotto);
+	                            }
 		                	else if (item.getFieldName().compareTo("prezzo") == 0) {
 		                		product.setPrezzo(Double.parseDouble(item.getString()));
 		                	}

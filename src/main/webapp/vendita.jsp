@@ -13,6 +13,29 @@
  	<title>Geek Factory - Vendita</title>
     <link rel="stylesheet" href="./css/account.css">
     <link rel="icon" href="./img/icon.png">
+    <style>
+        .error-message {
+            color: red;
+        }
+    </style>
+    <script>
+    function validateInput(input) {
+        var forbiddenChars = /[<>/]/g;
+        return !forbiddenChars.test(input);
+    }
+
+    function showErrorMessage() {
+        var nomeInput = document.getElementById("nomeProdotto");
+        var errorMessage = document.getElementById("errorMessage");
+
+        if (!validateInput(nomeInput.value)) {
+            errorMessage.style.display = "block";
+        } else {
+            errorMessage.style.display = "none";
+        }
+    }
+    </script>
+
 </head>
 <body>
 	<div class="header">
@@ -25,10 +48,12 @@
 		<div class="content">
 		<form action="Vendita" enctype="multipart/form-data" METHOD="POST">
 			<div class="user-details">
-				<div class="input-box">
-					<span class="details">Nome prodotto</span>
-					<input type="text" name="nome" maxlength="50" placeholder="Inserire nome prodotto" autofocus required/>
-				</div>
+                <div class="input-box">
+                    <span class="details">Nome prodotto</span>
+                    <input type="text" id="nomeProdotto" name="nome" maxlength="50" placeholder="Inserire nome prodotto" autofocus required
+                        oninput="showErrorMessage();" />
+                    <div id="errorMessage" class="error-message" style="display: none;">Caratteri non consentiti.</div>
+                </div>
 				<div class="input-box">
 					<span class="details">Prezzo</span>
 					<input type="number" step="0.01" name="prezzo" max="9999999" placeholder="Inserire prezzo" required/>
